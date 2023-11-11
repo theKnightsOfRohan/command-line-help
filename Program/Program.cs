@@ -1,74 +1,80 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using CommandLine;
 
 
 [assembly: InternalsVisibleTo("Program.Tests")]
 namespace Program;
 internal class Program
 {
-    public static void Main(string[] args)
+    static void Main(string[] args)
     {
-        if (args.Length == 0)
+        Parser.Default.ParseArguments<Options>(args)
+            .WithParsed(RunOptions)
+            .WithNotParsed(HandleParseError);
+    }
+
+    static void RunOptions(Options opts)
+    {
+        if (opts.Version)
         {
-            WriteAllCommands();
+            Console.WriteLine("Version 0.0.1");
         }
-        else
+        else if (opts.Verbose)
         {
-            HandleArgs(args);
+            Console.WriteLine("Verbose output enabled");
         }
     }
 
-    public static void HandleArgs(string[] args)
+    static void HandleParseError(IEnumerable<Error> errs)
     {
-        foreach (string arg in args)
-        {
-            switch (ParseArg(arg))
-            {
-                case "v":
-                    Console.WriteLine("Version: 1.0.0");
-                    break;
-            }
-        }
-    }
-
-    public static string ParseArg(string arg)
-    {
-        if (arg.StartsWith("-"))
-        {
-            if (arg.StartsWith("--"))
-            {
-                arg = arg[2..];
-            }
-            else
-            {
-                arg = arg[1..];
-            }
-
-            if (arg.Length > 1)
-            {
-                arg = arg[..1];
-            }
-        }
-
-        return arg.ToLower();
-    }
-
-    public static void WriteAllCommands()
-    {
-        try
-        {
-            string[] commands = File.ReadAllLines("commands/commands.txt");
-            foreach (string command in commands)
-            {
-                Console.WriteLine(command);
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        // Handle errors
     }
 
 
+    class Options
+    {
+        [Option('v', "version", Required = false, HelpText = "Show the version number")]
+        public bool Version { get; set; }
+
+        [Option('V', "verbose", Required = false, HelpText = "Show verbose output")]
+        public bool Verbose { get; set; }
+
+        [Option("ls", Required = false, HelpText = "List directory contents")]
+        public bool ListDirectoryContents { get; set; }
+
+        [Option("cd", Required = false, HelpText = "Change the current working directory")]
+        public string ChangeDirectory { get; set; }
+
+        [Option("mkdir", Required = false, HelpText = "Create a new directory")]
+        public string MakeDirectory { get; set; }
+
+        [Option("touch", Required = false, HelpText = "Create a new file")]
+        public string CreateFile { get; set; }
+
+        [Option("rm", Required = false, HelpText = "Remove a file or directory")]
+        public string RemoveFileOrDirectory { get; set; }
+
+        [Option("cp", Required = false, HelpText = "Copy a file or directory")]
+        public string CopyFileOrDirectory { get; set; }
+
+        [Option("mv", Required = false, HelpText = "Move or rename a file or directory")]
+        public string MoveOrRenameFileOrDirectory { get; set; }
+
+        [Option("cat", Required = false, HelpText = "Display the contents of a file")]
+        public string DisplayFileContents { get; set; }
+
+        [Option("grep", Required = false, HelpText = "Search for a pattern in a file")]
+        public string SearchFile { get; set; }
+
+        [Option("echo", Required = false, HelpText = "Print text to the terminal")]
+        public string PrintText { get; set; }
+
+        [Option("chmod", Required = false, HelpText = "Change the permissions of a file or directory")]
+        public string ChangePermissions { get; set; }
+
+        [Option("sudo", Required = false, HelpText = "Run a command with administrative privileges")]
+        public string RunWithAdminPrivileges { get; set; }
+    }
 }
