@@ -1,11 +1,13 @@
 ﻿using System;
-using System.ComponentModel;
+using System.IO;
+using System.Runtime.CompilerServices;
 
-namespace Main;
 
-public class Program
+[assembly: InternalsVisibleTo("Program.Tests")]
+namespace Program;
+internal class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
         if (args.Length == 0)
         {
