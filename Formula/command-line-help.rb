@@ -10,4 +10,8 @@ class CommandLineHelp < Formula
   def install
     bin.install "help"
   end
+
+  test do
+    system "#{bin}/help", "--version"
+  end
 end
