@@ -8,14 +8,22 @@ using CommandLine;
 namespace Program;
 internal class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
+        if (args.Length == 0)
+        {
+            foreach (KeyValuePair<string, string> command in BasicCommands.CommandDictionary)
+            {
+                Console.WriteLine($"{command.Key}\t\t{command.Value}");
+            }
+            return;
+        }
         Parser.Default.ParseArguments<Options>(args)
             .WithParsed(RunOptions)
             .WithNotParsed(HandleParseError);
     }
 
-    static void RunOptions(Options opts)
+    public static void RunOptions(Options opts)
     {
         if (opts.Version)
         {
@@ -27,13 +35,13 @@ internal class Program
         }
     }
 
-    static void HandleParseError(IEnumerable<Error> errs)
+    public static void HandleParseError(IEnumerable<Error> errs)
     {
         // Handle errors
     }
 
 
-    class Options
+    public class Options
     {
         [Option('v', "version", Required = false, HelpText = "Show the version number")]
         public bool Version { get; set; }
