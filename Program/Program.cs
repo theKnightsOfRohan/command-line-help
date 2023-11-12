@@ -11,6 +11,17 @@ internal class Program
     {
         Parser.Default.ParseArguments<LsOptions, CdOptions, MkDirOptions, TouchOptions, RmOptions, CpOptions, MvOptions, CatOptions, GrepOptions, EchoOptions, ChModOptions, SudoOptions>(args)
             .WithParsed<LsOptions>(opts => RunOptions("ls", opts.Verbose))
+            .WithParsed<CdOptions>(opts => RunOptions("cd", opts.Verbose))
+            .WithParsed<MkDirOptions>(opts => RunOptions("mkdir", opts.Verbose))
+            .WithParsed<TouchOptions>(opts => RunOptions("touch", opts.Verbose))
+            .WithParsed<RmOptions>(opts => RunOptions("rm", opts.Verbose))
+            .WithParsed<CpOptions>(opts => RunOptions("cp", opts.Verbose))
+            .WithParsed<MvOptions>(opts => RunOptions("mv", opts.Verbose))
+            .WithParsed<CatOptions>(opts => RunOptions("cat", opts.Verbose))
+            .WithParsed<GrepOptions>(opts => RunOptions("grep", opts.Verbose))
+            .WithParsed<EchoOptions>(opts => RunOptions("echo", opts.Verbose))
+            .WithParsed<ChModOptions>(opts => RunOptions("chmod", opts.Verbose))
+            .WithParsed<SudoOptions>(opts => RunOptions("sudo", opts.Verbose))
             .WithNotParsed(HandleParseError);
     }
 
