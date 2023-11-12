@@ -3,86 +3,94 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using CommandLine;
 
-
 [assembly: InternalsVisibleTo("Program.Tests")]
 namespace Program;
 internal class Program
 {
     public static void Main(string[] args)
     {
-        if (args.Length == 0)
-        {
-            foreach (KeyValuePair<string, string> command in BasicCommands.CommandDictionary)
-            {
-                Console.WriteLine($"{command.Key}\t\t{command.Value}");
-            }
-            return;
-        }
-        Parser.Default.ParseArguments<Options>(args)
-            .WithParsed(RunOptions)
+        Parser.Default.ParseArguments<LsOptions, CdOptions, MkDirOptions, TouchOptions, RmOptions, CpOptions, MvOptions, CatOptions, GrepOptions, EchoOptions, ChModOptions, SudoOptions>(args)
+            .WithParsed<LsOptions>(opts => RunOptions("ls", opts.Verbose))
             .WithNotParsed(HandleParseError);
     }
 
-    public static void RunOptions(Options opts)
+    public static void RunOptions(String command, bool verbosity)
     {
-        if (opts.Version)
-        {
-            Console.WriteLine("Version 0.0.1");
-        }
-        else if (opts.Verbose)
-        {
-            Console.WriteLine("Verbose output enabled");
-        }
+        string v = verbosity ? "V" : "";
+        Console.WriteLine(BasicCommands.CommandExplanations[command][v]);
     }
 
     public static void HandleParseError(IEnumerable<Error> errs)
     {
-        // Handle errors
+        foreach (Error err in errs)
+        {
+            Console.WriteLine(err.ToString());
+        }
     }
-
 
     public class Options
     {
-        [Option('v', "version", Required = false, HelpText = "Show the version number")]
-        public bool Version { get; set; }
-
-        [Option('V', "verbose", Required = false, HelpText = "Show verbose output")]
+        [Option('V', "verbose", Required = false, HelpText = "Prints a detailed explanation of the command.")]
         public bool Verbose { get; set; }
+    }
 
-        [Option("ls", Required = false, HelpText = "List directory contents")]
-        public bool ListDirectoryContents { get; set; }
+    [Verb("ls", HelpText = "List directory contents")]
+    public class LsOptions : Options
+    {
+    }
 
-        [Option("cd", Required = false, HelpText = "Change the current working directory")]
-        public string ChangeDirectory { get; set; }
+    [Verb("cd", HelpText = "Change the current working directory")]
+    public class CdOptions : Options
+    {
+    }
 
-        [Option("mkdir", Required = false, HelpText = "Create a new directory")]
-        public string MakeDirectory { get; set; }
+    [Verb("mkdir", HelpText = "Create a new directory")]
+    public class MkDirOptions : Options
+    {
+    }
 
-        [Option("touch", Required = false, HelpText = "Create a new file")]
-        public string CreateFile { get; set; }
+    [Verb("touch", HelpText = "Create a new file")]
+    public class TouchOptions : Options
+    {
+    }
 
-        [Option("rm", Required = false, HelpText = "Remove a file or directory")]
-        public string RemoveFileOrDirectory { get; set; }
+    [Verb("rm", HelpText = "Remove a file or directory")]
+    public class RmOptions : Options
+    {
+    }
 
-        [Option("cp", Required = false, HelpText = "Copy a file or directory")]
-        public string CopyFileOrDirectory { get; set; }
+    [Verb("cp", HelpText = "Copy a file or directory")]
+    public class CpOptions : Options
+    {
+    }
 
-        [Option("mv", Required = false, HelpText = "Move or rename a file or directory")]
-        public string MoveOrRenameFileOrDirectory { get; set; }
+    [Verb("mv", HelpText = "Move or rename a file or directory")]
+    public class MvOptions : Options
+    {
+    }
 
-        [Option("cat", Required = false, HelpText = "Display the contents of a file")]
-        public string DisplayFileContents { get; set; }
+    [Verb("cat", HelpText = "Display the contents of a file")]
+    public class CatOptions : Options
+    {
+    }
 
-        [Option("grep", Required = false, HelpText = "Search for a pattern in a file")]
-        public string SearchFile { get; set; }
+    [Verb("grep", HelpText = "Search for a pattern in a file")]
+    public class GrepOptions : Options
+    {
+    }
 
-        [Option("echo", Required = false, HelpText = "Print text to the terminal")]
-        public string PrintText { get; set; }
+    [Verb("echo", HelpText = "Print text to the terminal")]
+    public class EchoOptions : Options
+    {
+    }
 
-        [Option("chmod", Required = false, HelpText = "Change the permissions of a file or directory")]
-        public string ChangePermissions { get; set; }
+    [Verb("chmod", HelpText = "Change the permissions of a file or directory")]
+    public class ChModOptions : Options
+    {
+    }
 
-        [Option("sudo", Required = false, HelpText = "Run a command with administrative privileges")]
-        public string RunWithAdminPrivileges { get; set; }
+    [Verb("sudo", HelpText = "Run a command with administrative privileges")]
+    public class SudoOptions : Options
+    {
     }
 }
