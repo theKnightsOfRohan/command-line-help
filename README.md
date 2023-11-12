@@ -1,10 +1,10 @@
-# Homebrew Command Line Help
+# Command Line Help
 
-## THIS APP IS NOT PUBLISHED YET
+## THIS APP IS NOT COMPLETE YET
 
 ## Introduction
 
-This is a simple homebrew application designed to provide users with information on the basics of shell commands and navigation. It's a handy tool for beginners who are learning to navigate the command line, as well as for experienced users who need a quick reference for shell commands.
+This is a simple application designed to provide users with information on the basics of shell commands and navigation. It's a handy tool for beginners who are learning to navigate the command line, as well as for experienced users who need a quick reference for shell commands.
 
 ## Technologies Used
 
