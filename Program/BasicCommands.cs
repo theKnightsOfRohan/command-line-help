@@ -28,10 +28,10 @@ internal static class BasicCommands
                 "├── settings.gradle\n"+
                 "└── README.md"+
                 "We could run \"ls\" to list the contents of MyProject. This command would output:\n\n"+
-                "src\t\tlib\t\tbuild.gradle\tsettings.gradle\tREADME.md\n\n"+
+                "src\tlib\tbuild.gradle\tsettings.gradle\tREADME.md\n\n"+
                 "You can also specify a directory to list the current contents of that directory.\n"+
                 "For example, if we wanted to list the contents of the \"src\" directory, we could run \"ls src/main\". This command would output:\n\n"+
-                "java\t\tresources\n\n"+
+                "java\tresources\n\n"+
                 "For more information about this command, run the command \"help ls --verbose\"."
             },
             {"V", "TODO: Add verbose output for \"ls\""},

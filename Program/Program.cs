@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using CommandLine;
 
@@ -25,17 +24,17 @@ internal class Program
             .WithNotParsed(HandleParseError);
     }
 
-    public static void RunOptions(String command, bool verbosity)
+    public static void RunOptions(string command, bool verbosity)
     {
         string v = verbosity ? "V" : "";
-        Console.WriteLine(BasicCommands.CommandExplanations[command][v]);
+        System.Console.WriteLine(BasicCommands.CommandExplanations[command][v]);
     }
 
     public static void HandleParseError(IEnumerable<Error> errs)
     {
         foreach (Error err in errs)
         {
-            Console.WriteLine(err.ToString());
+            System.Console.WriteLine(err.ToString());
         }
     }
 
