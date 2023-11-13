@@ -34,6 +34,9 @@ jobs:
     - name: Build for MacOS
       run: dotnet publish --configuration Release --runtime osx-x64 --self-contained true
 
+    - name: Create output directory
+      run: mkdir ./publish/macos
+
     - name: Create run script for macOS
       run: touch ./publish/macos/help.shh && echo '#!/bin/zsh' > ./publish/macos/help.sh && echo 'exec ./Program "$@"' >> ./publish/macos/help.sh
 
