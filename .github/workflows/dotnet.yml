@@ -46,7 +46,7 @@ jobs:
         args: zip ./publish/macos/osx-command-line-help.zip ./publish/macos/add-command.sh ./publish/macos/help.sh ./Program/bin/Release/net7.0/osx-x64/publish/Program
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: my-artifact
         path: ./publish/macos/osx-command-line-help.zip
