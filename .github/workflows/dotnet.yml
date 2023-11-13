@@ -30,29 +30,26 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    
-    - name: Publish for Windows
-      run: dotnet publish -c Release -r win-x64 --self-contained false --no-restore --no-build -o ${{ env.ROOT }}/publish/win-x64
 
-    - name: Publish for Linux
-      run: dotnet publish -c Release -r linux-x64 --self-contained false --no-restore --no-build -o ${{ env.ROOT }}/publish/linux-x64
-    
-    - name: Publish for MacOS
-      run: dotnet publish -c Release -r osx-x64 --self-contained false --no-restore --no-build -o ${{ env.ROOT }}/publish/osx-x64
+    - name: Create output directory
+      run: mkdir -p ./publish/macos
 
-    - name: Zip Windows Asset
-      run: |
-        cd ${{ env.ROOT }}/publish/win-x64
-        zip -r ${{ env.ROOT }}/publish/win-x64.zip .
-    
-    - name: Zip Linux Asset
-      run: |
-        cd ${{ env.ROOT }}/publish/linux-x64
-        zip -r ${{ env.ROOT }}/publish/linux-x64.zip .
-    
-    - name: Zip MacOS Asset
-      run: |
-        cd ${{ env.ROOT }}/publish/osx-x64
-        zip -r ${{ env.ROOT }}/publish/osx-x64.zip .
-        
-    
+    - name: Build for MacOS
+      run: dotnet publish --configuration Release --runtime osx-x64 --self-contained true && cp ./Program/bin/Release/net7.0/osx-x64/publish/Program ./publish/macos
+
+    - name: Create run script for macOS
+      run: touch ./publish/macos/help.sh && echo '#!/bin/zsh' > ./publish/macos/help.sh && echo 'exec ./Program "$@"' >> ./publish/macos/help.sh
+
+    - name: Create add command script for macOS
+      run: touch ./publish/macos/add-command.sh && echo '#!/bin/zsh' > ./publish/macos/add-command.sh && echo 'echo "alias help="$(pwd)/help.sh"" >> ~/.zshrc' >> ./publish/macos/add-command.sh
+
+    - name: Zip files
+      uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r osx-command-line-help.zip ./publish/macos/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: ./osx-command-line-help.zip
