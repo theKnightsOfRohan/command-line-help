@@ -52,7 +52,7 @@ jobs:
         args: zip -qq -r osx-command-line-help.zip .
 
     - name: Move out of Mac directory
-      run: cs ../..
+      run: cd ../..
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
