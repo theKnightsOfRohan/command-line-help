@@ -43,7 +43,7 @@ jobs:
     - name: Create add command script for macOS
       run: touch ./publish/macos/add-command.sh && echo '#!/bin/zsh' > ./publish/macos/add-command.sh && echo 'echo "alias help="$(pwd)/help.sh"" >> ~/.zshrc' >> ./publish/macos/add-command.sh
 
-    - name: Move intoto Mac directory
+    - name: Move into Mac directory
       run: cd ./publish/macos
 
     - name: Zip files
@@ -57,5 +57,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: my-artifact
+        name: osx-download-artifact
         path: ./osx-command-line-help.zip
