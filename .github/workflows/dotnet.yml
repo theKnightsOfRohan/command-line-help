@@ -43,10 +43,16 @@ jobs:
     - name: Create add command script for macOS
       run: touch ./publish/macos/add-command.sh && echo '#!/bin/zsh' > ./publish/macos/add-command.sh && echo 'echo "alias help="$(pwd)/help.sh"" >> ~/.zshrc' >> ./publish/macos/add-command.sh
 
+    - name: Move intoto Mac directory
+    - run: cd ./publish/macos
+
     - name: Zip files
       uses: montudor/action-zip@v1
       with:
-        args: zip -qq -r osx-command-line-help.zip ./publish/macos/
+        args: zip -qq -r osx-command-line-help.zip .
+
+    - name: Move out of Mac directory
+      run: cs ../..
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
