@@ -30,4 +30,23 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    
+
+    - name: Build for MacOS
+      run: dotnet publish --configuration Release --runtime osx-x64 --output ./publish/macos
+
+    - name: Create run script for macOS
+      run: touch ./publish/macos/help.shh && echo '#!/bin/zsh' > ./publish/macos/help.sh && echo 'exec ./Program "$@"' >> ./publish/macos/help.sh
+
+    - name: Create add command script for macOS
+      run: touch ./publish/macos/add-command.sh && echo '#!/bin/zsh' > ./publish/macos/add-command.sh && echo 'echo "alias help=\'$(pwd)/help.sh\'" >> ~/.zshrc' >> ./publish/macos/add-command.sh
+
+    - name: Zip files
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip ./publish/macos/osx-command-line-help.zip ./publish/macos/add-command.sh ./publish/macos/help.sh ./Program/bin/Release/net7.0/osx-x64/publish/Program
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ./publish/macos/osx-command-line-help.zip
