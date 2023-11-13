@@ -46,7 +46,7 @@ jobs:
     - name: Zip files
       uses: montudor/action-zip@v1.0.0
       with:
-        args: zip ./publish/macos/osx-command-line-help.zip ./publish/macos/add-command.sh ./publish/macos/help.sh ./Program/bin/Release/net7.0/osx-x64/publish/Program
+        args: zip ./publish/macos
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
