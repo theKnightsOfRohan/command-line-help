@@ -35,7 +35,7 @@ jobs:
       run: mkdir -p ./publish/macos
 
     - name: Build for MacOS
-      run: dotnet publish --configuration Release --runtime osx-x64 --self-contained true && cp ./Program/bin/Release/net7.0/osx-x64/publish/Program.dll ./publish/macos
+      run: dotnet publish --configuration Release --runtime osx-arm64 --self-contained true && cp ./Program/bin/Release/net7.0/osx-arm64/publish/Program.dll ./publish/macos
 
     - name: Create run script for macOS
       run: touch ./publish/macos/help.sh && echo '#!/bin/zsh' > ./publish/macos/help.sh && echo 'exec ./Program "$@"' >> ./publish/macos/help.sh
@@ -46,5 +46,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: osx-download-artifact
+        name: osx-arm64-download-artifact
         path: ./publish/macos
