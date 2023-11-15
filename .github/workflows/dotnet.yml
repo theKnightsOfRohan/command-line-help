@@ -31,20 +31,11 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
-    - name: Create output directory
-      run: mkdir -p ./publish/macos
-
     - name: Build for MacOS
-      run: dotnet publish --configuration Release --runtime osx-arm64 --self-contained true && cp ./Program/bin/Release/net7.0/osx-arm64/publish/Program ./publish/macos
-
-    - name: Create run script for macOS
-      run: touch ./publish/macos/help.sh && echo '#!/bin/zsh' > ./publish/macos/help.sh && echo 'exec ./Program "$@"' >> ./publish/macos/help.sh
-
-    - name: Create add command script for macOS
-      run: touch ./publish/macos/add-command.sh && echo '#!/bin/zsh' > ./publish/macos/add-command.sh && echo 'echo "alias help="$(pwd)/help.sh"" >> ~/.zshrc' >> ./publish/macos/add-command.sh
+      run: dotnet publish --configuration Release --runtime osx-arm64 --self-contained true
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: osx-arm64-download-artifact
-        path: ./publish/macos
+        path: ./Program/bin/Release/net7.0/osx-arm64/publish
