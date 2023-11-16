@@ -34,6 +34,10 @@ internal class Program
     {
         foreach (Error err in errs)
         {
+            if (err is VersionRequestedError)
+            {
+                continue;
+            }
             System.Console.WriteLine(err.ToString());
         }
     }
