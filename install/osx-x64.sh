@@ -58,7 +58,6 @@ echo "Files successfully copied."
 echo "Creating alias..."
 cp ~/.zshrc ~/.zshrc.bak
 echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.zshrc
-source ~/.zshrc
 
 if ! command -v help &>/dev/null; then
     echo "Failed to create alias. Please try again."
