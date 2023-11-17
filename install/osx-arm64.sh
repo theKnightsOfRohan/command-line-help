@@ -17,20 +17,42 @@ SCRIPT_DIR="$(
 )"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# Find the .csproj file
+CSProjFile=$(find $ROOT_DIR -name "*.csproj" | head -n 1)
+if [ -z "$CSProjFile" ]; then
+    echo "No .csproj file found. Please check the structure of the project."
+    exit 1
+fi
+
 echo "Testing project..."
 dotnet build
-dotnet test $ROOT_DIR/Program.Tests/Program.tests.csproj
+dotnet test $CSProjFile
+if [ $? -ne 0 ]; then
+    echo "Tests failed. Please fix the issues and try again."
+    exit 1
+fi
 echo "Project passed all tests."
 
 echo "Building project..."
 dotnet publish -c Release -r osx-arm64 --self-contained true
+if [ $? -ne 0 ]; then
+    echo "Build failed. Please fix the issues and try again."
+    exit 1
+fi
 echo "Project successfully built."
+
+# Find the publish directory
+PublishDir=$(find $ROOT_DIR -name "publish" | head -n 1)
+if [ -z "$PublishDir" ]; then
+    echo "No publish directory found. Please check the build output."
+    exit 1
+fi
 
 echo "Copying files..."
 if [ ! -d /usr/local/bin/command-line-help ]; then
     sudo mkdir /usr/local/bin/command-line-help
 fi
-sudo cp -r $ROOT_DIR/Program/bin/Release/net7.0/osx-arm64/publish/ /usr/local/bin/command-line-help
+sudo cp -r $PublishDir/* /usr/local/bin/command-line-help
 echo "Files successfully copied."
 
 echo "Creating alias..."
@@ -47,5 +69,9 @@ echo "Alias successfully created."
 
 echo "Testing installation"
 help --version
+if [ $? -ne 0 ]; then
+    echo "Installation test failed. Please check the installation."
+    exit 1
+fi
 
 echo "Installation complete."

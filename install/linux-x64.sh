@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 set -e
 
@@ -6,15 +6,10 @@ if ! command -v dotnet &>/dev/null; then
     echo ".NET sdk could not be found. Please install it and try again."
     echo "https://dotnet.microsoft.com/download/dotnet/7.0"
     echo "Install the SDK using the installer for your platform."
-    echo "M1 Macbook Pros require the ARM64 version of the sdk."
-    echo "Intel Chip Macbook Pros require the x64 version of the sdk."
     exit
 fi
 
-SCRIPT_DIR="$(
-    cd "$(dirname "$0")"
-    pwd
-)"
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Find the .csproj file
@@ -34,7 +29,7 @@ fi
 echo "Project passed all tests."
 
 echo "Building project..."
-dotnet publish -c Release -r osx-x64 --self-contained true
+dotnet publish -c Release -r linux-x64 --self-contained true
 if [ $? -ne 0 ]; then
     echo "Build failed. Please fix the issues and try again."
     exit 1
@@ -56,9 +51,9 @@ sudo cp -r $PublishDir/* /usr/local/bin/command-line-help
 echo "Files successfully copied."
 
 echo "Creating alias..."
-cp ~/.zshrc ~/.zshrc.bak
-echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.zshrc
-source ~/.zshrc
+cp ~/.bashrc ~/.bashrc.bak
+echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.bashrc
+source ~/.bashrc
 
 if ! command -v help &>/dev/null; then
     echo "Failed to create alias. Please try again."
