@@ -17,10 +17,10 @@ SCRIPT_DIR="$(
 )"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-# Find the .csproj file
-CSProjFile=$(find $ROOT_DIR -name "*.csproj" | head -n 1)
+# Find the .Tests.csproj file
+CSProjFile=$(find $ROOT_DIR -name "*.Tests.csproj" | head -n 1)
 if [ -z "$CSProjFile" ]; then
-    echo "No .csproj file found. Please check the structure of the project."
+    echo "No .Tests.csproj file found. Please check the structure of the project."
     exit 1
 fi
 
