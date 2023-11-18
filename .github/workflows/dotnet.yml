@@ -30,18 +30,3 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-
-    - name: Build for MacOS
-      run: dotnet publish --configuration Release --runtime osx-arm64 --self-contained true && dotnet publish --configuration Release --runtime win-x64 --self-contained true
-
-    - name: Upload MacOS artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: osx-arm64-download-artifact
-        path: ./Program/bin/Release/net7.0/osx-arm64/publish
-
-    - name: Upload Windows artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: win-x64-download-artifact
-        path: ./Program/bin/Release/net7.0/win-x64/publish
