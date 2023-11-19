@@ -12,7 +12,7 @@ $SCRIPT_DIR = Split-Path $MyInvocation.MyCommand.Path -Parent
 $ROOT_DIR = Resolve-Path "$SCRIPT_DIR\.."
 
 # Find the .Tests.csproj file
-$CSProjFile =  Resolve-Path "*.Tests.csproj"
+$CSProjFile =  Resolve-Path "Program.Tests.csproj"
 if (!$CSProjFile) {
     Write-Host "No .Tests.csproj file found. Please check the structure of the project."
     exit 1
