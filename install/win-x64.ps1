@@ -20,7 +20,7 @@ if (!$CSProjFile) {
 
 Write-Host "Testing project..."
 dotnet build
-dotnet test $CSProjFile
+dotnet test "Program.Tests\$CSProjFile"
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Tests failed. Please fix the issues and try again."
     exit 1
