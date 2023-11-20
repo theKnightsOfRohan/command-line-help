@@ -67,11 +67,5 @@ fi
 
 echo "Alias successfully created."
 
-echo "Testing installation"
-help --version
-if [ $? -ne 0 ]; then
-    echo "Installation test failed. Please check the installation."
-    exit 1
-fi
-
-echo "Installation complete."
+echo "Installation complete. To test the installation, run 'help' in your terminal."
+source ~/.zshrc

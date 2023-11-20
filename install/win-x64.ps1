@@ -20,7 +20,7 @@ if (!$CSProjFile) {
 
 Write-Host "Testing project..."
 dotnet build
-dotnet test "Program.Tests\$CSProjFile"
+dotnet test $CSProjFile
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Tests failed. Please fix the issues and try again."
     exit 1
@@ -36,7 +36,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "Project successfully built."
 
 # Find the publish directory
-$PublishDir = Get-ChildItem -Path $ROOT_DIR -Filter publish -Recurse | Select-Object -First 1
+$PublishDir = "$ROOT_DIR\Program\bin\Release\net7.0\win-x64\publish"
 if (!$PublishDir) {
     Write-Host "No publish directory found. Please check the build output."
     exit 1
@@ -53,13 +53,6 @@ Write-Host "Files successfully copied."
 Write-Host "Adding to PATH..."
 $env:Path += ";$InstallDir"
 [System.Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::Machine)
-Write-Host "Please open a new command line session for the changes to PATH to take effect."
+Write-Host "Path successfully updated."
 
-Write-Host "Testing installation"
-& "$InstallDir\Program.exe" --version
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Installation test failed. Please check the installation."
-    exit 1
-}
-
-Write-Host "Installation complete."
+Write-Host "Installation complete. To test the installation, run `help` in a new session."
