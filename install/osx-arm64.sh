@@ -18,15 +18,15 @@ SCRIPT_DIR="$(
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Find the .Tests.csproj file
-CSProjFile=$(find $ROOT_DIR -name "*.Tests.csproj" | head -n 1)
-if [ -z "$CSProjFile" ]; then
+TestProjFile=$(find $ROOT_DIR -name "*.Tests.csproj" | head -n 1)
+if [ -z "$TestProjFile" ]; then
     echo "No .Tests.csproj file found. Please check the structure of the project."
     exit 1
 fi
 
 echo "Testing project..."
 dotnet build
-dotnet test $CSProjFile
+dotnet test $TestProjFile
 if [ $? -ne 0 ]; then
     echo "Tests failed. Please fix the issues and try again."
     exit 1
