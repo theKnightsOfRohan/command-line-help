@@ -74,7 +74,7 @@ else
     echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.zshrc
 fi
 
-if ! command -v help &>/dev/null; then
+if [! grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.bashrc]; then
     echo "Failed to create alias. Please try again."
     exit
 fi
