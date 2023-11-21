@@ -6,8 +6,8 @@ if ! command -v dotnet &>/dev/null; then
     echo ".NET sdk could not be found. Please install it and try again."
     echo "https://dotnet.microsoft.com/download/dotnet/7.0"
     echo "Install the SDK using the installer for your platform."
-    echo "M1 Macbook Pros require the ARM64 version of the sdk."
-    echo "Intel Chip Macbook Pros require the x64 version of the sdk."
+    echo "M1 Macs require the ARM64 version of the sdk."
+    echo "Intel Chip Macs require the x64 version of the sdk."
     exit
 fi
 
