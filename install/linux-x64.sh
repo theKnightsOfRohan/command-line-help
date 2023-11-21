@@ -58,6 +58,9 @@ fi
 sudo cp -r $PublishDir/* /usr/local/bin/command-line-help
 echo "Files successfully copied."
 
+echo "Creating alias..."
+cp ~/.bashrc ~/.bashrc.bak
+
 # Check if the alias already exists in .bashrc
 if grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.bashrc; then
     echo "Alias already exists in .bashrc. Skipping..."

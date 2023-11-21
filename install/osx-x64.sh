@@ -63,6 +63,9 @@ fi
 sudo cp -r $PublishDir/* /usr/local/bin/command-line-help
 echo "Files successfully copied."
 
+echo "Creating alias..."
+cp ~/.zshrc ~/.zshrc.bak
+
 # Check if the alias already exists in .zshrc
 if grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.zshrc; then
     echo "Alias already exists in .zshrc. Skipping..."
