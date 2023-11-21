@@ -58,10 +58,13 @@ fi
 sudo cp -r $PublishDir/* /usr/local/bin/command-line-help
 echo "Files successfully copied."
 
-echo "Creating alias..."
-cp ~/.bashrc ~/.bashrc.bak
-echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.bashrc
-source ~/.bashrc
+# Check if the alias already exists in .bashrc
+if grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.bashrc; then
+    echo "Alias already exists in .bashrc. Skipping..."
+else
+    echo "Adding alias to .bashrc..."
+    echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.bashrc
+fi
 
 if ! command -v help &>/dev/null; then
     echo "Failed to create alias. Please try again."
