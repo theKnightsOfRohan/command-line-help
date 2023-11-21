@@ -24,8 +24,12 @@ if [ -z "$TestProjFile" ]; then
     exit 1
 fi
 
-echo "Testing project..."
+echo "Building and testing project..."
 dotnet build
+if [ $? -ne 0 ]; then
+    echo "Build failed. Please fix the issues and try again."
+    exit 1
+fi
 dotnet test $TestProjFile
 if [ $? -ne 0 ]; then
     echo "Tests failed. Please fix the issues and try again."
@@ -33,7 +37,7 @@ if [ $? -ne 0 ]; then
 fi
 echo "Project passed all tests."
 
-echo "Building project..."
+echo "Releasing project..."
 dotnet publish -c Release -r osx-x64 --self-contained true
 if [ $? -ne 0 ]; then
     echo "Build failed. Please fix the issues and try again."
