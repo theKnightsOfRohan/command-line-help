@@ -72,11 +72,11 @@ if grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.zshrc; the
 else
     echo "Adding alias to .zshrc..."
     echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.zshrc
-fi
 
-if [! grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.zshrc]; then
-    echo "Failed to create alias. Please try again."
-    exit
+    if [! grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.zshrc]; then
+        echo "Failed to create alias. Please try again, or manually add the alias to your .zshrc file."
+        exit
+    fi
 fi
 
 echo "Alias successfully created."

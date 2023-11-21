@@ -64,11 +64,11 @@ if grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.bashrc; th
 else
     echo "Adding alias to .bashrc..."
     echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.bashrc
-fi
 
-if [! grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.bashrc]; then
-    echo "Failed to create alias. Please try again."
-    exit
+    if [! grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.bashrc]; then
+        echo "Failed to create alias. Please try again, or manually add the alias to your .bashrc file."
+        exit
+    fi
 fi
 
 echo "Alias successfully created."
