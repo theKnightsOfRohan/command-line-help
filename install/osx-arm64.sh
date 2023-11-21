@@ -18,7 +18,7 @@ SCRIPT_DIR="$(
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Find the .Tests.csproj file
-TestProjFile=$(find $ROOT_DIR -name "*.Tests.csproj" | head -n 1)
+TestProjFile="$ROOT_DIR/Program.Tests/Program.Tests.csproj"
 if [ -z "$TestProjFile" ]; then
     echo "No .Tests.csproj file found. Please check the structure of the project."
     exit 1
