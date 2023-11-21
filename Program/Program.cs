@@ -22,6 +22,8 @@ internal class Program
             .WithParsed<ChModOptions>(opts => RunOptions("chmod", opts.Verbose))
             .WithParsed<SudoOptions>(opts => RunOptions("sudo", opts.Verbose))
             .WithNotParsed(HandleParseError);
+
+        System.Console.WriteLine("Hello World!");
     }
 
     public static void RunOptions(string command, bool verbosity)

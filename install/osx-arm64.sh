@@ -50,7 +50,11 @@ fi
 
 echo "Copying files..."
 if [ ! -d /usr/local/bin/command-line-help ]; then
+    echo "Creating directory in /usr/local/bin"
     sudo mkdir /usr/local/bin/command-line-help
+elif [ "$(ls -A /usr/local/bin/command-line-help)" ]; then
+    echo "Removing old files..."
+    sudo rm -r /usr/local/bin/command-line-help/*
 fi
 sudo cp -r $PublishDir/* /usr/local/bin/command-line-help
 echo "Files successfully copied."
@@ -58,7 +62,6 @@ echo "Files successfully copied."
 echo "Creating alias..."
 cp ~/.zshrc ~/.zshrc.bak
 echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.zshrc
-source ~/.zshrc
 
 if ! command -v help &>/dev/null; then
     echo "Failed to create alias. Please try again."
