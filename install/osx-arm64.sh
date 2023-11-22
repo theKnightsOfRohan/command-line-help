@@ -24,6 +24,9 @@ if [ -z "$TestProjFile" ]; then
     exit 1
 fi
 
+echo "At various points in the build process, you may be prompted for your password."
+echo "This is required to install the program as a global command."
+
 echo "Building and testing project..."
 dotnet build
 if [ $? -ne 0 ]; then
