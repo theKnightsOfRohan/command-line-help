@@ -68,13 +68,13 @@ else
     echo "Adding alias to .bashrc..."
     echo "alias help='/usr/local/bin/command-line-help/Help'" | sudo tee -a ~/.bashrc
 
-    if [! grep -q "alias help='/usr/local/bin/command-line-help/Help'" ~/.bashrc]; then
+    if [ ! grep -q "alias help='/usr/local/bin/command-line-help/Help'" ~/.bashrc ]; then
         echo "Failed to create alias. Please try again, or manually add the alias to your .bashrc file."
         exit
     fi
-fi
 
-echo "Alias successfully created."
+    echo "Alias successfully created."
+fi
 
 echo "Installation complete. To test the installation, run 'help' in your terminal."
 source ~/.bashrc
