@@ -1,6 +1,6 @@
-using Program;
+using Help;
 
-namespace Program.Tests;
+namespace Help.Tests;
 
 public class Tests
 {

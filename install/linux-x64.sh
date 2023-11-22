@@ -13,7 +13,7 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Find the .Tests.csproj file
-TestProjFile="$ROOT_DIR/Program.Tests/Program.Tests.csproj"
+TestProjFile="$ROOT_DIR/Help.Tests/Help.Tests.csproj"
 if [ -z "$TestProjFile" ]; then
     echo "No .Tests.csproj file found. Please check the structure of the project."
     exit 1
@@ -62,13 +62,13 @@ echo "Creating alias..."
 cp ~/.bashrc ~/.bashrc.bak
 
 # Check if the alias already exists in .bashrc
-if grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.bashrc; then
+if grep -q "alias help='/usr/local/bin/command-line-help/Help'" ~/.bashrc; then
     echo "Alias already exists in .bashrc. Skipping..."
 else
     echo "Adding alias to .bashrc..."
-    echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.bashrc
+    echo "alias help='/usr/local/bin/command-line-help/Help'" | sudo tee -a ~/.bashrc
 
-    if [! grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.bashrc]; then
+    if [! grep -q "alias help='/usr/local/bin/command-line-help/Help'" ~/.bashrc]; then
         echo "Failed to create alias. Please try again, or manually add the alias to your .bashrc file."
         exit
     fi

@@ -18,7 +18,7 @@ SCRIPT_DIR="$(
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Find the .Tests.csproj file
-TestProjFile="$ROOT_DIR/Program.Tests/Program.Tests.csproj"
+TestProjFile="$ROOT_DIR/Help.Tests/Help.Tests.csproj"
 if [ -z "$TestProjFile" ]; then
     echo "No .Tests.csproj file found. Please check the structure of the project."
     exit 1
@@ -67,13 +67,13 @@ echo "Creating alias..."
 cp ~/.zshrc ~/.zshrc.bak
 
 # Check if the alias already exists in .zshrc
-if grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.zshrc; then
+if grep -q "alias help='/usr/local/bin/command-line-help/Help'" ~/.zshrc; then
     echo "Alias already exists in .zshrc. Skipping..."
 else
     echo "Adding alias to .zshrc..."
-    echo "alias help='/usr/local/bin/command-line-help/Program'" | sudo tee -a ~/.zshrc
+    echo "alias help='/usr/local/bin/command-line-help/Help'" | sudo tee -a ~/.zshrc
 
-    if [! grep -q "alias help='/usr/local/bin/command-line-help/Program'" ~/.zshrc]; then
+    if [! grep -q "alias help='/usr/local/bin/command-line-help/Help'" ~/.zshrc]; then
         echo "Failed to create alias. Please try again, or manually add the alias to your .zshrc file."
         exit
     fi

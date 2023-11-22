@@ -2,9 +2,9 @@
 using System.Runtime.CompilerServices;
 using CommandLine;
 
-[assembly: InternalsVisibleTo("Program.Tests")]
-namespace Program;
-internal class Program
+[assembly: InternalsVisibleTo("Help.Tests")]
+namespace Help;
+internal class Help
 {
     public static void Main(string[] args)
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Program;
+namespace Help;
 internal static class BasicCommands
 {
     public static Dictionary<string, Dictionary<string, string>> CommandExplanations = new()
