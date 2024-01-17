@@ -1,8 +1,33 @@
+using System;
 using System.Collections.Generic;
 
 namespace Help;
 internal static class BasicCommands
 {
+    public static string BasicOverview(string command)
+    {
+        if (command == "v")
+        {
+            return "Help version $(Version)";
+        }
+        if (command == "V")
+        {
+            return "TODO: Add verbose output as detailed explanation of command line concepts.";
+        }
+        else if (command == "c")
+        {
+            return "TODO: Add list of commands.";
+        }
+        else
+        {
+            string output = "";
+            if (command != "")
+            {
+                output += "Error: Command \"" + command + "\" not found.\n\n";
+            }
+            return output + "TODO: Add basic overview of tool.";
+        }
+    }
     public static Dictionary<string, Dictionary<string, string>> CommandExplanations = new()
     {
         {"ls", new(){
